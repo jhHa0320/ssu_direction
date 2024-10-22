@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <!--스타일 정의-->
+    <style>
+        h1 {
+            font-size: 24px;
+            text-align: center;
+        }
+        a {
+          text-decoration: none; color: black; 
+        }
+        .location-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .location-section {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-container label, .form-container select, .form-container button {
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .swap-button {
+            grid-column: 1 / span 3;
+            text-align: center;
+            align-self: center;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .start-location-label {
+            grid-column: 1 / 2;
+            text-align: left;
+            align-self: center;
+        }
+        .start-location-input {
+            grid-column: 2 / 3;
+            align-self: center;
+        }
+        .end-location-label {
+            grid-column: 1 / 2;
+            text-align: left;
+            align-self: center;
+        }
+        .end-location-input {
+            grid-column: 2 / 3;
+            align-self: center;
+        }
+        .submit-button {
+            text-align: center;
+            margin-top: 10px;
+            width: 80px;
+            padding: 5px;
+            font-size: 0.9em;
+            cursor: pointer;
+        }
+        #map-container {
+            margin: 20px 150px 100px 150px;
+        }
+        @font-face {
+            font-family: 'Ownglyph_eunbyul21-Rg';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-2@1.0/Ownglyph_eunbyul21-Rg.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+        h1 {
+            font-family: 'Ownglyph_eunbyul21-Rg', sans-serif;
+            font-size: 50px;
+        }
+        @font-face {
+            font-family: '양진체';
+            src: url('https://fastly.jsdelivr.net/gh/supernovice-lab/font@0.9/yangjin.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+    </style>
+    
+    <!--타이틀(첫 화면으로 이동하도록 함)-->
+    <a href='/pybo'><h1 >숭실의나침반</h1></a>     
+</head>
+<body>
+    <!-- folium 지도 화면 및 단거리 경로 제시 화면-->
+    <div class="form-container">
+        <form action="{% url 'calculate_route' %}" method="post">
+            {% csrf_token %}
+            <div class="location-container">
+                <!-- 출발지 선택 버튼-->
+                <div class="location-section">
+                    <label for="start_location" class="start-location-label">출발지:</label>
+                    <select name="start_location_main" id="start_location_main" class="start-location-input">
+                        <option value = 0>선택</option>
+                        {% for category in mainCategory %} 
+                            <option value="{{category}}">{{ category }}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="start_location_sub" id="start_location_sub" class="start-location-input">
+                        <option value=0>선택</option>
+                        {% for building in buildings %}
+                            <option value="{{building.name}}">{{ building.name }}</option>
+                        {% endfor %}
+                        {% for station in stations %}
+                        <option value="{{station.name}}">{{ station.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <!-- 스왑 버튼 -->
+                <span class="swap-button" id="swap-button">&#8644;</span>
+                <!-- 목적지 선택 버튼 -->
+                <div class="location-section">
+                    <label for="end_location" class="end-location-label">목적지:</label>
+                    <select name="end_location_main" id="end_location_main" class="end-location-input">
+                        <option value = 0>선택</option>
+                        {% for category in mainCategory %} 
+                            <option value="{{category}}">{{ category }}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="end_location_sub" id="end_location_sub" class="end-location-input">
+                        <option value=0>선택</option>
+                        {% for building in buildings %}
+                            <option value="{{building.name}}">{{ building.name }}</option>
+                        {% endfor %}
+                        {% for station in stations %}
+                        <option value="{{station.name}}">{{ station.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <!-- 제출 버튼 -->
+                <div>
+                    <button type="submit" class="submit-button">길찾기</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- 스왑 기능 구현 스크립트 -->
+    <script>
+        document.getElementById('swap-button').addEventListener('click', function() {
+            let start_main = document.getElementById('start_location_main');
+            let end_main = document.getElementById('end_location_main');
+            let temp_main = start_main.value;
+            start_main.value = end_main.value;
+            end_main.value = temp_main;
+
+            let start_sub = document.getElementById('start_location_sub');
+            let end_sub = document.getElementById('end_location_sub');
+            let temp_sub = start_sub.value;
+            start_sub.value = end_sub.value;
+            end_sub.value = temp_sub;
+        });
+    </script> 
+    <!-- folium 지도 불러옴 -->
+    <div id="map-container">
+        {% if folium_map_html %}
+            {{ folium_map_html|safe }}
+        {% endif %}
+    </div>
+</body>
+</html>

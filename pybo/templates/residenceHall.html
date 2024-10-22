@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="vieport" content="width=device-width, initial-scale=1.0">
+        <title>레지던스홀</title>
+        <style>
+        .form-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: auto auto auto;
+            gap: 10px;
+            margin: 20px;
+        }
+        .form-container label, .form-container select, .form-container button {
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .swap-button {
+            grid-column: 1 / span 3;
+            text-align: center;
+            align-self: center;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .start-location-label {
+            grid-column: 1 / 2;
+            text-align: right;
+            align-self: center;
+        }
+        .start-location-input {
+            grid-column: 2 / 3;
+            align-self: center;
+        }
+        .end-location-label {
+            grid-column: 1 / 2;
+            text-align: right;
+            align-self: center;
+        }
+        .end-location-input {
+            grid-column: 2 / 3;
+            align-self: center;
+        }
+        .submit-button {
+            grid-column: 1 / span 3;
+            text-align: center;
+            margin-top: 10px;
+        }
+        a {
+          text-decoration: none; color: black; 
+        }
+        @font-face {
+            font-family: 'Ownglyph_eunbyul21-Rg';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-2@1.0/Ownglyph_eunbyul21-Rg.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+        .title {
+            font-family: 'Ownglyph_eunbyul21-Rg', sans-serif;
+            font-size: 50px;
+            text-align: center;
+        }
+        @font-face {
+            font-family: '양진체';
+            src: url('https://fastly.jsdelivr.net/gh/supernovice-lab/font@0.9/yangjin.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        </style>
+    </head>
+    <body>
+        <h1><a href='/pybo' class="title">숭실의나침반</a></h1>   
+        <h2><a href="{% url '교내_건물' %}">다른 건물 보기</a></h2>
+        <br>
+
+        <div class="form-container">
+            <form action="{% url '레지던스홀' %}" method="post">
+                {% csrf_token %}
+                <span class="swap-button" id="swap-button">&#8644;</span>
+            <label for="start_location" class="start-location-label">출발지:</label>
+            <select name="start_location_detail1" id="start_location_detail1" class="start-location-input">
+                <option value = 0>선택</option>
+                {% for floor in residenceHall_list_floor %} 
+                    <option value="{{floor}}">{{ floor }}</option>
+                {% endfor %}
+            </select>
+            <select name="start_location_detail2" id="start_location_detail2" class="start-location-input">
+                <option value = 0>선택</option>
+                {% for list in residenceHall_list %} 
+                    <option value="{{list}}">{{ list }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="end_location" class="end-location-label">목적지:</label>
+            <select name="end_location_detail1" id="end_location_detail1" class="end-location-input">
+                <option value = 0>선택</option>
+                {% for floor in residenceHall_list_floor %} 
+                    <option value="{{floor}}">{{ floor }}</option>
+                {% endfor %}
+            </select>
+            <select name="end_location_detail2" id="end_location_detail2" class="end-location-input">
+                <option value = 0>선택</option>
+                {% for list in residenceHall_list %} 
+                    <option value="{{list}}">{{ list }}</option>
+                {% endfor %}
+            </select>
+            <br>
+
+            <button type="submit" class="submit-button">길찾기</button>
+        </div>
+        
+
+        <script>
+            document.getElementById('swap-button').addEventListener('click', function() {
+                let start_detail1 = document.getElementById('start_location_detail1');
+                let end_detail1 = document.getElementById('end_location_detail1');
+                let temp_detail1 = start_detail1.value;
+                start_detail1.value = end_detail1.value;
+                end_detail1.value = temp_detail1;
+    
+                let start_detail2 = document.getElementById('start_location_detail2');
+                let end_detail2 = document.getElementById('end_location_detail2');
+                let temp_detail2 = start_detail2.value;
+                start_detail2.value = end_detail2.value;
+                end_detail2.value = temp_detail2;
+            });
+        </script>
+
+        <h1>레지던스홀</h1>
+        <img src="https://ssudorm.ssu.ac.kr:444/images/SShostel/templates/B0001/introduce/img_0102_007.jpg" alt="레지던스홀_지하_1층">
+        <h2>지하 1층</h2>
+        <img src="https://ssudorm.ssu.ac.kr:444/images/SShostel/templates/B0001/foor_02.gif" alt="Munhwa_first_floor">
+        <h2>1층</h2>
+        <img src="https://ssudorm.ssu.ac.kr:444/images/SShostel/templates/B0001/foor_03.gif" alt="레지던스홀_지상_1층">
+        <h2>2층</h2>
+        <img src="https://ssudorm.ssu.ac.kr:444/images/SShostel/templates/B0001/foor_04.gif" alt="레지던스홀_지상_2층">
+        <h2>3층</h2>
+        <img src="https://ssudorm.ssu.ac.kr:444/images/SShostel/templates/B0001/foor_05.gif" alt="레지던스홀_지상_3층">
+        <h2>4층</h2>
+        <img src="https://ssudorm.ssu.ac.kr:444/images/SShostel/templates/B0001/foor_06.gif" alt="레지던스홀_지상_4층">
+        <h2>5층</h2>
+        <img src="https://ssudorm.ssu.ac.kr:444/images/SShostel/templates/B0001/foor_07.gif" alt="레지던스홀_지상_5층">
+        <h2>6층</h2>
+        <img src="https://ssudorm.ssu.ac.kr:444/images/SShostel/templates/B0001/foor_08.gif" alt="레지던스홀_지상_6층">
+        <h2>7층</h2>
+        <img src="https://ssudorm.ssu.ac.kr:444/images/SShostel/templates/B0001/foor_09.gif" alt="레지던스홀_지상_7층">
+        <h2>8층</h2>
+        <img src="https://ssudorm.ssu.ac.kr:444/images/SShostel/templates/B0001/foor_10.gif" alt="레지던스홀_지상_8층">
+        <h2>9층</h2>
+        <img src="https://ssudorm.ssu.ac.kr:444/images/SShostel/templates/B0001/foor_11.gif" alt="레지던스홀_지상_9층">
+        <h2>10층</h2>
+        <img src="https://ssudorm.ssu.ac.kr:444/images/SShostel/templates/B0001/foor_12.gif" alt="레지던스홀_지상_10층">
+        <h2>11층</h2>
+        <img src="https://ssudorm.ssu.ac.kr:444/images/SShostel/templates/B0001/foor_13.gif" alt="레지던스홀_지상_11층">
+        <h2>12층</h2>
+        <img src="https://ssudorm.ssu.ac.kr:444/images/SShostel/templates/B0001/foor_14.gif" alt="레지던스홀_지상_12층">
+    </body>
+    
+</html>

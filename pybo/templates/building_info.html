@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="vieport" content="width=device-width, initial-scale=1.0">
+            <!-- 웹폰트 불러오기 배민Jua폰트 / Rubik Gemstones 폰트 -->
+		<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Rubik+Gemstones&display=swap" rel="stylesheet">
+        <link href="https://hangeul.pstatic.net/hangeul_static/css/maru-buri.css" rel="stylesheet">
+			<style>
+			.maru-buri {
+                font-family: 'MaruBuriExtraLight';
+                font-family: 'MaruBuriLight';
+                font-family: 'MaruBuri';
+                font-family: 'MaruBuriBold';
+                font-family: 'MaruBuriSemiBold';
+            }
+            #map-container {
+            height: 400px;
+            width: 700px;
+            
+            margin-top: 20px;
+            margin-right: 20px;
+            margin-bottom: 20px;
+            }
+            #map {
+                width: 100%;
+                height: 100%;
+            }
+            a {
+          text-decoration: none; color: black; 
+        }
+        @font-face {
+            font-family: 'Ownglyph_eunbyul21-Rg';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-2@1.0/Ownglyph_eunbyul21-Rg.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+        .title {
+            font-family: 'Ownglyph_eunbyul21-Rg', sans-serif;
+            font-size: 50px;
+            text-align: center;
+        }
+        @font-face {
+            font-family: '양진체';
+            src: url('https://fastly.jsdelivr.net/gh/supernovice-lab/font@0.9/yangjin.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+			</style>
+        <title>건물 내부 안내</title>
+    </head>
+    <body style="font-family: 'MaruBuri', serif;">
+        <div>
+            <h1><a href='/pybo' class="title">숭실의나침반</a></h1>   
+            <h1>건물 안내</h1>
+            <h2>강의 건물</h2>
+            <h3><a href="{% url '교육관' %}">교육관</a></h3>
+            <h3><a href="{% url '문화관' %}">문화관</a></h3>
+            <h3><a href="{% url '미래관' %}">미래관</a></h3>
+            <h3><a href="{% url '백마관' %}">백마관</a></h3>
+            <h3><a href="{% url '베어드홀' %}">베어드홀</a></h3>
+            <h3><a href="{% url '벤처중소기업센터' %}">벤처중소기업센터</a></h3>
+            <h3><a href="{% url '숭덕경상관' %}">숭덕경상관</a></h3>
+            <h3><a href="{% url '신양관' %}">신양관</a></h3>
+            <h3><a href="{% url '안익태기념관' %}">안익태기념관</a></h3>
+            <h3><a href="{% url '연구관' %}">연구관</a></h3>
+            <h3><a href="{% url '웨스터민스터홀' %}">웨스터민스터홀</a></h3>
+            <h3><a href="{% url '전산관' %}">전산관</a></h3>
+            <h3><a href="{% url '정보과학관' %}">정보과학관</a></h3>
+            <h3><a href="{% url '조만식기념관' %}">조만식기념관</a></h3>
+            <h3><a href="{% url '중앙도서관' %}">중앙도서관</a></h3>
+            <h3><a href="{% url '진리관' %}">진리관</a></h3>
+            <h3><a href="{% url '창신관' %}">창신관</a></h3>
+            <h3><a href="{% url '창의관' %}">창의관</a></h3>
+            <h3><a href="{% url '학생회관' %}">학생회관</a></h3>
+            <h3><a href="{% url '한경직기념관' %}">한경직기념관</a></h3>
+            <h3><a href="{% url '한국기독교박물관' %}">한국기독교박물관</a></h3>
+            <h3><a href="{% url '형남공학관' %}">형남공학관</a></h3>
+        </div>
+
+
+        <div>
+            <h2>기타 건물</h2>
+            <h3><a href="{% url '글로벌브레인홀' %}">글로벌브레인홀</a></h3>
+            <h3><a href="{% url '레지던스홀' %}">레지던스홀</a></h3>
+            <br>
+        </div>
+
+        <br>
+        <div>
+            <h1>식당</h1>
+            <h2>교내식당</h2>
+            <h3>학생식당</h3>
+            <p>학생회관 3층(5,000)</p>
+            <h3>도담식당</h3>
+            <p>신양관 2층(6,000)</p>
+            <h3>전산관 카페테리아(The Kitchen)</h3>
+            <p>전산관 지층</p>
+            <h3>전산관 교직원식당(Faculty Lounge)</h3>
+            <p>전산관 지층</p>
+            <h3>스넥코너</h3>
+            <p>학생회관 3층</p>
+            <h3>푸드코트</h3>
+            <p>학생회관 2층</p>
+        </div>
+        <div id="map-container">
+            {% if folium_ssuMapRes_html%}
+                {{ folium_ssuMapRes_html|safe }}
+            {% endif %}
+        </div>
+        
+        <br>
+
+        <div>
+            <h1>편의 시설</h1>
+            <br>
+            <div>
+                <h2>카페</h2>
+                <br>
+                <h3>달콤슈</h3>
+                <p>숭덕경상관 2층</p>
+                <br>
+                <h3>커피앤티스토리</h3>
+                <p>조만식기념관 1층</p>
+                <br>
+                <h3>카페 331</h3>
+                <p>웨스터민스터홀 3층</p>
+                <br>
+                <h3>숭실마루 커피점</h3>
+                <p>중앙도서관 6층<p>
+                <br>
+                <h3>푸드트럭 니키즈</h3>
+                <p>웨스터민스터홀 3층 입구 뒤</p>
+            </div>
+            <div id="map-container">
+                {% if folium_ssuMapCafe_html%}
+                    {{ folium_ssuMapCafe_html|safe }}
+                {% endif %}
+            </div>
+            <br>
+            <div>
+                <h2>편의점</h2>
+                <h3>이마트24 숭실대형남공학관점</h3>
+                <p>형남공학관 2층</p>
+                <br>
+                <h3>이마트24 숭실대학생회관점</h3>
+                <p>학생회관 4층</p>
+                <br>
+                <h3>이마트24 숭실대조만식기념관점</h3>
+                <p>조만식기념관 2층</p>
+                <br>
+                <h3>이마트24 숭덕경상관</h3>
+                <p>숭덕경상관 1층</p>
+                <br>
+                <h3>이마트24 전산관</h3>
+                <p>전산관 1층</p>
+                <br>
+                <h3>이마트24 신양관</h3>
+                <p>신양관 1층</p>
+                <br>
+                <h3>LOG-IN 편의점</h3>
+                <p>레지던스홀 지하 1층</p>
+                <div id="map-container">
+                    {% if folium_ssuMapConv_html%}
+                        {{ folium_ssuMapConv_html|safe }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <br>
+        <div>
+            <h1>각종 업무</h1>
+            <div>
+                <h2>은행</h2>
+                <h3>우리 은행</h3>
+                <p>신양관 지하 1층</p>
+            </div>
+            <br>
+            <div>
+                <h2>우체국</h2>
+                <p>신양관 지하 1층</p>
+            </div>
+            <div id="map-container">
+                {% if folium_ssuMapBankAndPost_html%}
+                    {{ folium_ssuMapBankAndPost_html|safe }}
+                {% endif %}
+            </div>
+            <br>
+            <div>
+                <h2>ATM</h2>
+                <h3>형남공학관 ATM</h3>
+                <p>형남공학관 2층(우리)</p>
+                <h3>베어드홀 ATM</h3>
+                <p>베어드홀 2층(국민, 우리)</p>
+                <h3>정보과학관 ATM</h3>
+                <p>정보과학관 1층(우리)</p>
+                <h3>전산관 ATM</h3>
+                <p>전산관 1층 출입구(우리)</p>
+                <h3>조만식기념관 ATM</h3>
+                <p>조만식기념관 1층(우리, 신한)</p>
+                <br>
+            </div>
+            <div id="map-container">
+                {% if folium_ssuMapATM_html%}
+                    {{ folium_ssuMapATM_html|safe }}
+                {% endif %}
+            </div>
+            <div>
+                <h2>증명서 업무</h2>
+                <h3>증명서 자동발급</h3>
+                <p>도서관 1층 로비</p>
+            </div>
+            
+        </div>
+    </body>
+</html>
