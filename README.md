@@ -1,16 +1,40 @@
-# ssu_direction
+# SSU Direction
+숭실대학교 교내 길찾기 프로그램
 
-## 숭실대 길찾기 프로그램 ##
+## 사용된 언어 및 프레임워크
+- **Python**
+- **Django**
+- **Folium**
+- **OSMNX**
+- **HTML/CSS/JavaScript**
 
-## 사용된 언어 ##
-- Python/Django/Folium
-- osmnx
-- html/css/javascript
+## 프로젝트 설명
+2024년 1학년 1학기 **프로그래밍 및 실습 1** 과목에서 진행한 개인 프로젝트 과제입니다. 
 
-2024년 1학년 1학기 프로그래밍및실습1 과목에서 진행한 개인 프로젝트 과제입니다.
-네이버 길찾기 기능이 학교 캠퍼스 내부에서 바람직한 길찾기 경로를 보여주지 않는 것을 발견하여 숭실대학교만의 길찾기 프로그램을 만들고자 했습니다.
-캠퍼스 내 건물-건물 길찾기 기능과, 건물 내 강의실 또는 편의시설 간 길찾기 기능을 만드는 것을 목표로 하였으나, 후자는 학교 건물 구조를 파악하는 작업이 쉽지 않아 건물-건물 길찾기 기능만 구현한 후 제출할 수 있었습니다.
+학교 캠퍼스 내부에서 **네이버 길찾기** 기능이 바람직한 길찾기 경로를 보여주지 않는 것을 발견하여, 숭실대학교만의 길찾기 프로그램을 만들고자 하였습니다. 
 
-편의시설을 한눈에 볼 수 있도록 folium을 이용한 기능을 추가했습니다.
+### 주요 기능
+- **건물-건물 길찾기**: 캠퍼스 내 건물 간의 최적 경로를 제공합니다.
+- **편의시설 시각화**: Folium을 이용해 캠퍼스 내 편의시설을 한눈에 볼 수 있는 기능을 추가했습니다.
 
-본 프로젝트는 추후 개선시킬 전망입니다.
+> **참고**: 건물 내 강의실 또는 편의시설 간 길찾기 기능은 학교 건물 구조를 파악하는 작업이 쉽지 않아, 현재는 건물-건물 길찾기 기능만 구현한 상태입니다. 추후 개선할 예정입니다.
+
+## 시연
+![Demo Image](URL_TO_YOUR_DEMO_IMAGE)
+
+## 설치 방법
+1. 저장소 클론:
+   ```bash
+   git clone https://github.com/username/ssu_direction.git
+   cd ssu_direction
+2. 가상환경 설정:    
+   python -m venv venv
+   source venv/bin/activate  # Linux / macOS
+   venv\Scripts\activate     # Windows
+3. django, folium, osmnx 설치
+   pip install django
+   pip install folium
+   pip install osmnx
+4. 서버 실행:
+   python manage.py runserver
+5. 브라우저에서 https://127.0.0.1:8000 또는 생성된 링크로 이동하여 확인합니다.
